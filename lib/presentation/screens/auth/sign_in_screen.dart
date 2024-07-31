@@ -130,7 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
       "email": _emailTEController.text.trim(),
       "password":_passwordTEController.text.trim(),
     };
-    final ResponseObject response = await NetworkCaller.postRequest(Urls.logIn, inputParams);
+    final ResponseObject response = await NetworkCaller.postRequest(Urls.logIn, inputParams , fromSignIn: true);
     _isSignInInProgress =false;
     setState(() {});
     if(response.isSuccess){

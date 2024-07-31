@@ -14,12 +14,12 @@ class _ProgressTaskScreenState extends State<ProgressTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ProfileAppBar,
+      appBar: profileAppBar,
       body: BackgroundWallpaper(
         child: ListView.builder(
           itemCount: 4,
           itemBuilder: (context, index) {
-            return const TaskCard();
+            // return const TaskCard();
           },
         ),
       ),

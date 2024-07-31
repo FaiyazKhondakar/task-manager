@@ -26,7 +26,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ProfileAppBar,
+      appBar: profileAppBar,
       body: BackgroundWallpaper(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 4),

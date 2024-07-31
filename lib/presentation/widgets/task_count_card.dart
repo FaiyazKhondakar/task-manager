@@ -4,8 +4,8 @@ class TaskCounterCard extends StatelessWidget {
   const TaskCounterCard({
     super.key, required this.amount, required this.title,
   });
-  final int amount;
-  final String title;
+  final int? amount;
+  final String? title;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -14,7 +14,7 @@ class TaskCounterCard extends StatelessWidget {
         child: Column(
           children: [
             Text('$amount',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 24),),
-            Text(title,style: const TextStyle(color: Colors.grey),),
+            Text(title!,style: const TextStyle(color: Colors.grey),),
           ],
         ),
       ),

@@ -14,12 +14,12 @@ class _CompleteTaskScreenState extends State<CompleteTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ProfileAppBar,
+      appBar: profileAppBar,
       body: BackgroundWallpaper(
         child: ListView.builder(
           itemCount: 8,
           itemBuilder: (context, index) {
-            return const TaskCard();
+            // return const TaskCard();
           },
         ),
       ),

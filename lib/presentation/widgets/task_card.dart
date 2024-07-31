@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:task_management/data/models/task_item.dart';
 
 import '../utils/app_colors.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({
-    super.key,
+    super.key, required this.taskItem,
   });
-
+  final TaskItem taskItem;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,16 +19,16 @@ class TaskCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Title will be here',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16),),
-            const Text('Description will be here',style: TextStyle(color: Colors.grey,),),
-            const Text('Date: 12/01/24'),
+            Text(taskItem.title ?? '',style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 16),),
+            Text(taskItem.description ?? '',style: const TextStyle(color: Colors.grey,),),
+            Text(taskItem.createdDate ?? ''),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Chip(
-                  label: const Text(
-                    'New',
-                    style: TextStyle(fontSize: 10),
+                  label: Text(
+                    taskItem.status ?? '',
+                    style: const TextStyle(fontSize: 10),
                   ),
                   backgroundColor: AppColors.themeColor,
                 ),

@@ -6,7 +6,7 @@ import 'package:task_management/presentation/screens/update_profile_screen.dart'
 
 import '../utils/app_colors.dart';
 
-PreferredSizeWidget get ProfileAppBar {
+PreferredSizeWidget get profileAppBar {
   return AppBar(
     automaticallyImplyLeading: false,
     title: GestureDetector(
@@ -16,22 +16,22 @@ PreferredSizeWidget get ProfileAppBar {
             MaterialPageRoute(
                 builder: (context) => const UpdateProfileScreen()));
       },
-      child: const Row(
+      child: Row(
         children: [
-          CircleAvatar(),
+          const CircleAvatar(),
           Padding(
-            padding: EdgeInsets.only(left: 8),
+            padding: const EdgeInsets.only(left: 8),
             child: Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Faiyaz',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    '${AuthController.userData?.firstName} ${AuthController.userData?.lastName}',
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),
                   Text(
-                    'faiyaz@gmail.com',
-                    style: TextStyle(fontSize: 12, color: Colors.white),
+                    '${AuthController.userData!.email} ',
+                    style: const TextStyle(fontSize: 12, color: Colors.white),
                   ),
                 ],
               ),

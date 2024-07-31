@@ -5,7 +5,10 @@ class ResponseObject {
   final String? errorMassage;
 
   ResponseObject(
-      {required this.isSuccess,required this.statusCode,
+      {
+      required this.isSuccess,
+      required this.statusCode,
       required this.responseBody,
-      this.errorMassage = ''});
+      this.errorMassage = ''
+      });
 }
