@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_management/data/services/network_caller.dart';
 import 'package:task_management/data/utility/urls.dart';
 import 'package:task_management/presentation/controller/validator.dart';
-import 'package:task_management/presentation/screens/auth/pin_verification_screen.dart';
-import 'package:task_management/presentation/screens/new_task_screen.dart';
+import 'package:task_management/presentation/screens/main_bottom_nav_screen.dart';
 import 'package:task_management/presentation/widgets/background_wallpaper.dart';
 import 'package:task_management/presentation/widgets/profile_bar.dart';
 
@@ -22,76 +21,83 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
   final TextEditingController _descriptionTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isAddNewTaskInProgress = false;
+  bool _shouldRefreshNewTaskList = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: profileAppBar,
-      body: BackgroundWallpaper(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 4),
-          child: Form(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  Text(
-                    "Add New Task",
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    controller: _titleTEController,
-                    decoration: const InputDecoration(
-                      hintText: 'Title',
+    return WillPopScope(
+      onWillPop: () async{
+        Navigator.pop(context,_shouldRefreshNewTaskList);
+        return false;
+      },
+      child: Scaffold(
+        appBar: profileAppBar,
+        body: BackgroundWallpaper(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 4),
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 100,
                     ),
-                    validator: (String? value){
-                      return Validator.textFieldValidator(value, 'Title');
-                    },
-                  ),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    maxLines: 5,
-                    keyboardType: TextInputType.emailAddress,
-                    controller: _descriptionTEController,
-                    decoration: const InputDecoration(
-                      hintText: 'Description',
+                    Text(
+                      "Add New Task",
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    validator: (String? value){
-                      return Validator.textFieldValidator(value, 'Description');
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                      width: double.infinity,
-                      child: Visibility(
-                        visible: _isAddNewTaskInProgress == false,
-                        replacement: const Center(child: CircularProgressIndicator(),),
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              if(_formKey.currentState!.validate()){
-                                await _addNewTask(context);
-                                Navigator.pop(context);
-                              }
-                            },
-                            child: const Icon(Icons.arrow_circle_right_rounded)),
-                      )),
 
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _titleTEController,
+                      decoration: const InputDecoration(
+                        hintText: 'Title',
+                      ),
+                      validator: (String? value){
+                        return Validator.textFieldValidator(value, 'Title');
+                      },
+                    ),
+
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      maxLines: 5,
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _descriptionTEController,
+                      decoration: const InputDecoration(
+                        hintText: 'Description',
+                      ),
+                      validator: (String? value){
+                        return Validator.textFieldValidator(value, 'Description');
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                        width: double.infinity,
+                        child: Visibility(
+                          visible: _isAddNewTaskInProgress == false,
+                          replacement: const Center(child: CircularProgressIndicator(),),
+                          child: ElevatedButton(
+                              onPressed: () async {
+                                if(_formKey.currentState!.validate()){
+                                  await _addNewTask(context);
+                                  Navigator.pop(context);
+                                }
+                              },
+                              child: const Icon(Icons.arrow_circle_right_rounded)),
+                        )),
+
+                  ],
+                ),
               ),
             ),
           ),
@@ -114,8 +120,10 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
     _isAddNewTaskInProgress = false;
     setState(() {});
     if(response.isSuccess){
+      _shouldRefreshNewTaskList =true;
       if(mounted){
         showSnackBarMessage(context, 'New task added.');
+
       }
     }
     else{
