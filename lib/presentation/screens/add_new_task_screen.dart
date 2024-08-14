@@ -90,7 +90,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                               onPressed: () async {
                                 if(_formKey.currentState!.validate()){
                                   await _addNewTask(context);
-                                  Navigator.pop(context);
+                                  Navigator.pop(context,_shouldRefreshNewTaskList);
                                 }
                               },
                               child: const Icon(Icons.arrow_circle_right_rounded)),

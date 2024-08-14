@@ -81,6 +81,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               context,
               MaterialPageRoute(
                   builder: (context) => const AddNewTaskScreen()));
+
           if(result !=null && result == true){
             _getDataFromApis();
           }
